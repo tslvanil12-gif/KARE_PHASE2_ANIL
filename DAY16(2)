@@ -1,0 +1,98 @@
+class Node {
+    int data;
+    Node prev;
+    Node next;
+    
+    public Node(int data) {
+        this.data = data;
+        this.prev = null;
+        this.next = null;
+    }
+}
+
+// Doubly Linked List class
+class DoublyLinkedList {
+    Node head;
+    
+    // Method to add a node at the end
+    public void add(int data) {
+        Node newNode = new Node(data);
+        
+        if (head == null) {
+            head = newNode;
+        } else {
+            Node current = head;
+            while (current.next != null) {
+                current = current.next;
+            }
+            current.next = newNode;
+            newNode.prev = current;
+        }
+    }
+    
+    // Method to find maximum element
+    public int findMax() {
+        // Handle empty list
+        if (head == null) {
+            throw new RuntimeException("List is empty");
+        }
+        
+        int max = head.data;  // Initialize max with first element
+        Node current = head.next;  // Start from second node
+        
+        // Traverse through the list
+        while (current != null) {
+            if (current.data > max) {
+                max = current.data;  // Update max if current is greater
+            }
+            current = current.next;
+        }
+        
+        return max;
+    }
+    
+    // Display the list
+    public void display() {
+        Node current = head;
+        while (current != null) {
+            System.out.print(current.data);
+            if (current.next != null) {
+                System.out.print(" <-> ");
+            }
+            current = current.next;
+        }
+        System.out.println();
+    }
+}
+
+// Main class
+public class Main {
+    public static void main(String[] args) {
+        DoublyLinkedList dll = new DoublyLinkedList();
+        
+        // Add elements
+        dll.add(10);
+        dll.add(45);
+        dll.add(23);
+        dll.add(67);
+        dll.add(34);
+        
+        // Display list
+        System.out.print("List: ");
+        dll.display();
+        
+        // Find and print maximum
+        System.out.println("Maximum element: " + dll.findMax());
+        
+        // Example with negative numbers
+        DoublyLinkedList dll2 = new DoublyLinkedList();
+        dll2.add(-5);
+        dll2.add(-20);
+        dll2.add(-3);
+        dll2.add(-15);
+        
+        System.out.print("\nList 2: ");
+        dll2.display();
+        System.out.println("Maximum element: " + dll2.findMax());
+    }
+}
